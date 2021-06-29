@@ -1,5 +1,4 @@
+import { Dog } from './lib';
+export { Dog };
 
-import { Dog } from './lib'
-export { Dog }
-
-console.log(new Dog<string>('Bruto').name)
+console.log(new Dog<string>('Bruto').name);
