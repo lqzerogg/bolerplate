@@ -1,6 +1,27 @@
 import React, { useState } from 'react';
+import { Link, Route, Switch } from 'react-router-dom';
 import logo from '/assets/logo.svg';
 import './App.css';
+
+type Page = {
+  name: string;
+  path: string;
+  component: React.JSXElementConstructor<any>;
+};
+function Home() {
+  return <div>Home</div>;
+}
+function About() {
+  return <div>About</div>;
+}
+function Detail() {
+  return <div>Details</div>;
+}
+const pages: Page[] = [
+  { name: 'Home', path: '/', component: Home },
+  { name: 'About', path: '/about', component: About },
+  { name: 'Detail', path: '/detail', component: Detail },
+];
 
 function App() {
   const [count, setCount] = useState(0);
@@ -38,6 +59,26 @@ function App() {
           </a>
         </p>
       </header>
+      <nav>
+        <ul>
+          {pages.map(({ name, path }) => {
+            return (
+              <li key={path}>
+                <Link to={path}>{name}</Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+      <Switch>
+        {pages.map(({ path, component: RouteComp }) => {
+          return (
+            <Route exact={path === '/'} key={path} path={path}>
+              <RouteComp />:{path}
+            </Route>
+          );
+        })}
+      </Switch>
     </div>
   );
 }

@@ -11,7 +11,10 @@ export default ({ command, mode }) => {
     envDir: 'envs',
     build: {
       outDir: '.dist'
-    }
+    },
+    // esbuild: {
+    //   jsxInject: `import React from 'react';`
+    // },
   }
   if (command === 'build') {
     configBase.plugins.push(legacy({

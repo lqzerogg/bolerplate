@@ -5,6 +5,16 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "debug server",
+      "program": "${workspaceFolder}/devServer.js",
+      "request": "launch",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "pwa-node"
+    },
+
+    {
       "name": "Current TS File",
       "type": "node",
       "request": "launch",
