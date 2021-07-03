@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
+import { Link, Route, Switch } from 'react-router-dom';
 import logo from '/assets/logo.svg';
 import './App.css';
+
+type Page = {
+  name: string;
+  path: string;
+  component: React.ReactElement;
+};
+const pages: Page[] = [
+  { name: 'Home', path: '/', component: <div>Home</div> },
+  { name: 'About', path: '/about', component: <div>about</div> },
+  { name: 'Detail', path: '/detail', component: <div>details</div> },
+];
 
 function App() {
   const [count, setCount] = useState(0);
@@ -38,6 +50,9 @@ function App() {
           </a>
         </p>
       </header>
+      <nav>
+        <ul>{pages.map(({ name, path }) => {})}</ul>
+      </nav>
     </div>
   );
 }
