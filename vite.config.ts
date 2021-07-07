@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite'
+import { UserConfig } from "vite";    
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import legacy from '@vitejs/plugin-legacy'
 
 // https://vitejs.dev/config/
 export default ({ command, mode }) => {
-  const configBase = {
+  const configBase: UserConfig = {
     plugins: [
       reactRefresh(),
     ],
@@ -26,5 +26,5 @@ export default ({ command, mode }) => {
       base: '//localhost:3001/',
     })
   }
-  return defineConfig(configBase)
+  return configBase
 }
