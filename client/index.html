@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% htmlWebpackPlugin.files.css.forEach((val) => { %>
+      <% if(!/server(\.\w+)?\.bundle\.css$/.test(val)) { %>
+        <link rel="stylesheet" href="<%= val %> ">
+      <% } %>
+    <% }) %>
+    <meta charset="utf-8" />
+    <title>{{title}}</title>
+ </head>
+ <body>
+   <div id="root"></div>
+
+  <% htmlWebpackPlugin.files.js.forEach((val) => { %>
+    <% if(!/server(\.\w+)?\.bundle\.js$/.test(val)) { %>
+      <script src="<%= val %>"></script>
+    <% } %>
+  <% }) %>
+ </body>
+</html>

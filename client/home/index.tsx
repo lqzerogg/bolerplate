@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '/assets/logo.svg';
+import logo from '@assets/logo.svg';
 import { Route } from 'react-router-dom';
 import './index.css';
 
@@ -12,7 +12,7 @@ function Home() {
       <p>Hello Vite + React!</p>
       <p>
         <button type="button" onClick={() => setCount((count) => count + 1)}>
-          count is: {count}
+          hello world! count: {count}
         </button>
       </p>
       <p>

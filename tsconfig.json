@@ -1,6 +1,9 @@
 
 {
   "compilerOptions": {
+    "paths": {
+      "@assets/*": ["./assets/*"],
+    }, 
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "outDir": "./.dist",
@@ -23,5 +26,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["./src/**/*"]
+  "include": ["client/**/*"]
 }
