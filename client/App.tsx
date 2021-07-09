@@ -2,6 +2,7 @@ import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import { Link, Switch, withRouter } from 'react-router-dom';
 import { routes, pages } from './routes';
+import './test'
 import './App.css';
 
 function App(props: any) {

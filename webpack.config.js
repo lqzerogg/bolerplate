@@ -14,20 +14,17 @@ const HtmlPlugin = require('html-webpack-plugin')
 //todo dynamic loading
 //todo dyanmic loading, extract component css to another file
 
-const PROD_URL = '//localhost:5000/'
-const DEV_URL = '/'
-const ASSETS_PATH = 'assets/'
 const CLIENT_PATH = path.resolve(__dirname, 'client')
 
 const defaultCfg = {
   entry: {
-    client: path.resolve(CLIENT_PATH, 'client-entry.tsx'),
-    server: path.resolve(CLIENT_PATH, 'server-entry.tsx'),
+    client: [path.resolve(CLIENT_PATH, 'client-entry.tsx')],
+    server: [path.resolve(CLIENT_PATH, 'server-entry.tsx')],
   },
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.(tsx?|js)$/,
         use: [
           {
             loader: 'babel-loader'
@@ -37,10 +34,12 @@ const defaultCfg = {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/,
+        include: [path.resolve(__dirname, 'client'), path.resolve(__dirname, 'assets')],
         type: 'asset/resource'
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
+        include: [path.resolve(__dirname, 'client'), path.resolve(__dirname, 'assets')],
         type: 'asset/resource'
       },
     ]
@@ -48,10 +47,25 @@ const defaultCfg = {
   output: {
     clean: true,
   },
+  optimization: {
+    runtimeChunk: 'single',
+    moduleIds: 'deterministic',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom|@loadable\/component|react-hot-loader\/root)[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+      },
+    }
+  },
   resolve: {
     alias: {
       '@assets': path.resolve(__dirname, 'assets/')
     },
+    modules: [path.resolve(__dirname, 'node_modules')],
+    symlinks: false,
     extensions: ['.tsx', '.ts', '.js']
   },
   plugins: [
@@ -65,12 +79,15 @@ const defaultCfg = {
 
 module.exports = (env, argv) => {
   let config
+  let envPath
   if (argv.mode === 'development') {
-    const publicPath = `${DEV_URL}${ASSETS_PATH}`
-    const clientEntry = ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', defaultCfg.entry.client]
-    defaultCfg.entry.client = clientEntry
+    envPath = './envs/development.env.js'
+    const CONSTS = require(envPath)
+    const publicPath = CONSTS.PUBLIC_PATH
+    defaultCfg.entry.client.unshift('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000')
     // htmlPluginCfg.publicPath = publicPath
     config = merge(defaultCfg, {
+      profile: true,
       mode: 'development',
       devtool: 'source-map',
       module: {
@@ -96,7 +113,9 @@ module.exports = (env, argv) => {
     })
   }
   if (argv.mode === 'production') {
-    const publicPath = `${PROD_URL}${ASSETS_PATH}`
+    envPath = './envs/production.env.js'
+    const CONSTS = require(envPath)
+    const publicPath = CONSTS.PUBLIC_PATH
     config = merge(defaultCfg, {
       mode: 'production',
       module: {

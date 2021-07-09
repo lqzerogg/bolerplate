@@ -1,5 +1,6 @@
 import React from 'react';
 import homeRoute from './home';
+import about from './dynamic_pages/about'
 import { Link, Route, Switch, withRouter } from 'react-router-dom';
 
 type Page = {
@@ -20,9 +21,7 @@ const pages: Page[] = [
 
 const routes = [
   homeRoute,
-  <Route key="/about" path="/about">
-    <About />
-  </Route>,
+  about,
   <Route key="/detail" path="/detail">
     <Detail />
   </Route>,
