@@ -41,8 +41,14 @@ function Home() {
   );
 }
 
-export default (
-  <Route exact key="/" path="/">
-    <Home />
-  </Route>
-);
+// export default (
+//   <Route exact key="/" path="/">
+//     <Home />
+//   </Route>
+// );
+
+export default {
+  path: '/',
+  name: 'home',
+  component: Home,
+}

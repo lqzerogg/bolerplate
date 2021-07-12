@@ -26,9 +26,8 @@ const defaultCfg = {
       {
         test: /\.(tsx?|js)$/,
         use: [
-          {
-            loader: 'babel-loader'
-          }
+          'thread-loader',
+          'babel-loader',
         ],
         exclude: /node_modules/,
       },
@@ -46,6 +45,7 @@ const defaultCfg = {
   },
   output: {
     clean: true,
+    pathinfo: false,
   },
   optimization: {
     runtimeChunk: 'single',
@@ -53,7 +53,7 @@ const defaultCfg = {
     splitChunks: {
       cacheGroups: {
         vendor: {
-          test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom|@loadable\/component|react-hot-loader\/root)[\\/]/,
+          test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom|@loadable\/component|react-hot-loader)[\\/]/,
           name: 'vendor',
           chunks: 'all',
         },

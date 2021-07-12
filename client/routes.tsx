@@ -1,30 +1,28 @@
 import React from 'react';
-import homeRoute from './home';
-import about from './dynamic_pages/about'
-import { Link, Route, Switch, withRouter } from 'react-router-dom';
+import home from './home';
+import { Route, Link, Switch, withRouter } from 'react-router-dom';
 
 type Page = {
   name: string;
   path: string;
+  component: React.FunctionComponent;
 };
-function About() {
-  return <div>About</div>;
-}
-function Detail() {
-  return <div>Details</div>;
-}
-const pages: Page[] = [
-  { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
-  { name: 'Detail', path: '/detail' },
-];
+// require all dynamic pages
+const ctx = require.context('./dynamic_pages', true, /index\.tsx/)
+const pages: Page[] = ctx.keys().map(key => ctx(key).default)
 
-const routes = [
-  homeRoute,
-  about,
-  <Route key="/detail" path="/detail">
-    <Detail />
-  </Route>,
-];
+// require all static pages
+pages.unshift(home)
+// const pages: Page[] = [
+//   home,
+//   about,
+//   details,
+// ];
+
+const routes: JSX.Element[] = pages.map((page) => (
+  <Route key={page.path} path={page.path} exact={page.path === '/' ? true : false}>
+    <page.component />
+  </Route>
+))
 
 export { pages, routes };

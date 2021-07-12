@@ -1,7 +1,7 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import loadable from '@loadable/component';
 
-const Details = import('./Details');
+const Details = loadable(() => import(/* webpackPrefetch: true */ './Details')) as React.FunctionComponent
 const path = '/details';
 
 function loadData() {
@@ -10,8 +10,14 @@ function loadData() {
   });
 }
 
+// export default (
+//   <Route key={path} path={path}>
+//     <Details />
+//   </Route>
+// )
 export default {
   path,
+  name: 'details',
   component: Details,
   loadData,
 };
