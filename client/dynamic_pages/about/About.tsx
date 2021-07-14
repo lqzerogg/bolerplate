@@ -1,6 +1,6 @@
-import React from 'react';
-import './index.css';
+import React from 'react'
+import './index.css'
 
 export default function About() {
-  return <div className="about">about</div>;
+  return <div className="about">about</div>
 }

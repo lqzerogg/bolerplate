@@ -1,9 +1,9 @@
 
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "@assets/*": ["./assets/*"],
+      "@assets/*": ["assets/*"],
     }, 
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],

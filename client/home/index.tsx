@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import logo from '@assets/logo.svg';
-import { Route } from 'react-router-dom';
-import './index.css';
+import React, { useState } from 'react'
+import logo from '@assets/logo.svg'
+import './index.css'
 
-function Home() {
-  const [count, setCount] = useState(0);
+function Home(): JSX.Element {
+  const [count, setCount] = useState(0)
 
   return (
     <header className="App-header">
@@ -38,7 +37,7 @@ function Home() {
         </a>
       </p>
     </header>
-  );
+  )
 }
 
 // export default (

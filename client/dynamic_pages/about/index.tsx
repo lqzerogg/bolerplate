@@ -1,8 +1,10 @@
-import React from 'react';
-import { Route } from "react-router-dom";
-import loadable from "@loadable/component";
+import React from 'react'
+import { Route } from 'react-router-dom'
+import loadable from '@loadable/component'
 
-const About = loadable(() => import(/* webpackPrefetch: true */ './About')) as React.FunctionComponent
+const About = loadable(
+  () => import(/* webpackPrefetch: true */ './About')
+) as React.FunctionComponent
 const path = '/about'
 
 // export default (
@@ -14,4 +16,4 @@ export default {
   path,
   name: 'about',
   component: About,
-};
+}

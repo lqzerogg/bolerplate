@@ -20,6 +20,7 @@ module.exports = api => {
         '@babel/preset-env',
         {
           useBuiltIns: "entry",
+          // modules: false,
             // caller.target 等于 webpack 配置的 target 选项
           targets,
         },

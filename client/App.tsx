@@ -1,11 +1,10 @@
-import { hot } from 'react-hot-loader/root';
-import React from 'react';
-import { Link, Switch, withRouter } from 'react-router-dom';
-import { routes, pages } from './routes';
-import './test'
-import './App.css';
+import { hot } from 'react-hot-loader/root'
+import React from 'react'
+import { Link, Switch, withRouter } from 'react-router-dom'
+import { routes, pages } from './routes'
+import './App.css'
 
-function App(props: any) {
+function App(props: { location: Location }) {
   return (
     <div className="App">
       <nav className="tab-ctn">
@@ -21,13 +20,13 @@ function App(props: any) {
               >
                 {name}
               </Link>
-            );
+            )
           })}
         </div>
       </nav>
       <Switch>{routes}</Switch>
     </div>
-  );
+  )
 }
 
-export default hot(withRouter(App));
+export default hot(withRouter(App))

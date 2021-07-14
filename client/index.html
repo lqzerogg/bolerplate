@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <% htmlWebpackPlugin.files.css.forEach((val) => { %>
-      <% if(!/server(\.\w+)?\.bundle\.css$/.test(val)) { %>
-        <link rel="stylesheet" href="<%= val %> ">
-      <% } %>
-    <% }) %>
+    <% htmlWebpackPlugin.files.css.forEach((val) => { %> <%
+    if(!/server(\.\w+)?\.bundle\.css$/.test(val)) { %>
+    <link rel="stylesheet" href="<%= val %> " />
+    <% } %> <% }) %>
     <meta charset="utf-8" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src *; child-src 'none'; script-src 'nonce-Id1DogTWj5e4R/tUH+9PNQ==' localhost:5000 'self'; prefetch-src localhost:5000 'self'; style-src localhost:5000 'unsafe-inline' 'self';">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src *; child-src 'none'; script-src 'nonce-Id1DogTWj5e4R/tUH+9PNQ==' localhost:5000 'self'; prefetch-src localhost:5000 'self'; style-src localhost:5000 'unsafe-inline' 'self';"
+    />
     <title>{{title}}</title>
- </head>
- <body>
-   <div id="root"></div>
+  </head>
+  <body>
+    <div id="root"></div>
 
-  <% htmlWebpackPlugin.files.js.forEach((val) => { %>
-    <% if(!/server(\.\w+)?\.bundle\.js$/.test(val)) { %>
-      <script src="<%= val %>"></script>
-    <% } %>
-  <% }) %>
- </body>
+    <% htmlWebpackPlugin.files.js.forEach((val) => { %> <%
+    if(!/server(\.\w+)?\.bundle\.js$/.test(val)) { %>
+    <script src="<%= val %>"></script>
+    <% } %> <% }) %>
+  </body>
 </html>

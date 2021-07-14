@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require('fs')
 const path = require('path')
 const express = require('express')
@@ -10,7 +11,7 @@ async function createServer() {
   if(true) {
     const webpackDevMiddleware = require('webpack-dev-middleware')
     const webpack = require('webpack')
-    const config = require('../webpack.config.js')({}, { mode: 'development' })
+    const config = require('../webpack.dev.config.js')({}, { mode: 'development' })
     const compiler = webpack(config)
     const hotMiddleware = require('webpack-hot-middleware')
     app.use(webpackDevMiddleware(compiler, {
