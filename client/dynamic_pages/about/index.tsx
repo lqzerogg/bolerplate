@@ -1,17 +1,21 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
 import loadable from '@loadable/component'
+import Loading from '../../components/loading'
+import { delaySpan, timeout } from '../../libs/util'
 
-const About = loadable(
-  () => import(/* webpackPrefetch: true */ './About')
-) as React.FunctionComponent
+function doLoad() {
+  return timeout(
+    delaySpan(
+      import(
+        /* webpackPrefetch: true */ /* webpackChunkName: "about" */ './About'
+      )
+    )
+  )
+}
+
+const About = loadable(doLoad, { fallback: <Loading /> })
 const path = '/about'
 
-// export default (
-//   <Route key={path} path={path}>
-//     <About />
-//   </Route>
-// )
 export default {
   path,
   name: 'about',

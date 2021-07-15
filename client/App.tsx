@@ -3,6 +3,7 @@ import React from 'react'
 import { Link, Switch, withRouter } from 'react-router-dom'
 import { routes, pages } from './routes'
 import './App.css'
+import ErrorBoundary from './components/errorBoudary'
 
 function App(props: { location: Location }) {
   return (
@@ -24,7 +25,9 @@ function App(props: { location: Location }) {
           })}
         </div>
       </nav>
-      <Switch>{routes}</Switch>
+      <ErrorBoundary>
+        <Switch>{routes}</Switch>
+      </ErrorBoundary>
     </div>
   )
 }

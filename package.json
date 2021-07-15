@@ -1,20 +1,24 @@
 {
   "name": "bolerplate",
   "version": "1.0.0",
-  "sideEffects": false,
+  "sideEffects": [
+    "client/**/*.css"
+  ],
   "description": "",
   "private": true,
   "scripts": {
     "test": "jest",
     "prepare": "husky install",
     "start": "node ./server/index.js",
-    "build:dev": "npx webpack --config webpack.dev.config.js",
-    "build:prod": "npx webpack --config webpack.prod.config.js",
+    "build:dev": "npx webpack --config webpack_config/webpack.dev.config.js",
+    "build:prod": "npx webpack --config webpack_config/webpack.prod.config.js",
     "dev": "node devServer"
   },
   "author": "Zero the Lost",
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write --ignore-unknown"
+    "client/**/*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write --ignore-unknown",
+    "*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write --ignore-unknown",
+    "server/**/*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write --ignore-unknown"
   },
   "dependencies": {
     "@loadable/component": "^5.15.0",
@@ -28,8 +32,12 @@
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.14.5",
+    "@loadable/babel-plugin": "^5.13.2",
+    "@loadable/server": "^5.15.0",
+    "@loadable/webpack-plugin": "^5.15.0",
     "@types/jest": "^26.0.23",
     "@types/loadable__component": "^5.13.4",
+    "@types/loadable__server": "^5.12.6",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.8",
@@ -69,6 +77,7 @@
     "webpack-cli": "^4.7.2",
     "webpack-dev-middleware": "^5.0.0",
     "webpack-hot-middleware": "^2.25.0",
-    "webpack-merge": "^5.8.0"
+    "webpack-merge": "^5.8.0",
+    "workbox-webpack-plugin": "^6.1.5"
   }
 }

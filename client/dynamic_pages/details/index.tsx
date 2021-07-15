@@ -1,22 +1,27 @@
 import React from 'react'
 import loadable from '@loadable/component'
+import Loading from '../../components/loading'
+import { delaySpan, timeout } from '../../libs/util'
 
-const Details = loadable(
-  () => import(/* webpackPrefetch: true */ './Details')
-) as React.FunctionComponent
+function doLoad() {
+  return timeout(
+    delaySpan(
+      import(
+        /* webpackPrefetch: true */ /* webpackChunkName: "details" */ './Details'
+      )
+    )
+  )
+}
+
+const Details = loadable(doLoad, { fallback: <Loading /> })
 const path = '/details'
 
-function loadData() {
+function loadData(): Promise<void> {
   return new Promise((resolve) => {
     global.setTimeout(resolve, 2000)
   })
 }
 
-// export default (
-//   <Route key={path} path={path}>
-//     <Details />
-//   </Route>
-// )
 export default {
   path,
   name: 'details',

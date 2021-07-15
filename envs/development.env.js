@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const common = require('./common.env')
 
 const envs = {
-  URL: '/',
+  SERVER_URL: '/',
   ASSETS_PATH: 'assets/',
 }
-envs.PUBLIC_PATH = `${envs.URL}${envs.ASSETS_PATH}`
+envs.PUBLIC_PATH = `${envs.SERVER_URL}${envs.ASSETS_PATH}`
+Object.assign(envs, common)
 
 module.exports = envs

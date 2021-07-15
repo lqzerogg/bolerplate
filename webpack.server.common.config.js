@@ -1,20 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
-const HtmlPlugin = require('html-webpack-plugin')
 const LoadablePlugin = require('@loadable/webpack-plugin')
-// const WorkboxPlugin = require('workbox-webpack-plugin');
-// const util = require('util')
-// read as json data
-// const toml = require('toml');
-// const yaml = require('yamljs');
-// const json5 = require('json5');
 
-const CLIENT_PATH = path.resolve(__dirname, 'client')
+const SERVER_PATH = path.resolve(__dirname, 'server')
 
 module.exports = {
   entry: {
-    client: [path.resolve(CLIENT_PATH, 'client-entry.tsx')],
-    // server: [path.resolve(CLIENT_PATH, 'server-entry.tsx')],
+    server: [path.resolve(SERVER_PATH, 'server-entry.tsx')],
   },
   module: {
     rules: [
@@ -69,7 +61,7 @@ module.exports = {
   },
   plugins: [
     new HtmlPlugin({
-      template: path.resolve(CLIENT_PATH, 'index.html'),
+      template: path.resolve(SERVER_PATH, 'index.html'),
       inject: false,
       filename: '../index.html',
     }),
