@@ -2,18 +2,18 @@
 const path = require('path')
 const webpack = require('webpack')
 const { merge } = require('webpack-merge')
-const defaultCfg = require('./webpack.common.config.js')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const getDefault = require('./webpack.common.config.js')
 
-module.exports = (/* env, argv */) => {
-  let envPath = './envs/development.env.js'
-  const CONSTS = require(envPath)
-  const publicPath = CONSTS.PUBLIC_PATH
-  defaultCfg.entry.client.unshift(
-    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'
-  )
-  // htmlPluginCfg.publicPath = publicPath
-  return merge(defaultCfg, {
-    profile: true,
+let ENVPATH = '../envs/development.env.js'
+const CONSTS = require(ENVPATH)
+const publicPath = CONSTS.PUBLIC_PATH
+
+function getConfig(target) {
+  const defaultCfg = getDefault(target)
+
+  const config = merge(defaultCfg, {
+    // profile: true,
     mode: 'development',
     devtool: 'source-map',
     module: {
@@ -23,7 +23,9 @@ module.exports = (/* env, argv */) => {
           test: /\.css$/i,
           exclude: /\.module\.css$/,
           use: [
-            { loader: 'style-loader' },
+            target === 'web'
+              ? { loader: 'style-loader' }
+              : MiniCssExtractPlugin.loader,
             { loader: 'css-loader', options: { sourceMap: true } },
             { loader: 'postcss-loader', options: { sourceMap: true } },
           ],
@@ -32,7 +34,9 @@ module.exports = (/* env, argv */) => {
           // todo css not enable
           test: /\.module\.css$/i,
           use: [
-            { loader: 'style-loader' },
+            target === 'web'
+              ? { loader: 'style-loader' }
+              : MiniCssExtractPlugin.loader,
             {
               loader: 'css-loader',
               options: {
@@ -50,21 +54,36 @@ module.exports = (/* env, argv */) => {
       ],
     },
     output: {
-      path: path.resolve(__dirname, '.dist/assets/'),
       filename: '[name].bundle.js',
       publicPath,
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin(
         Object.assign(
           {
             PRDUCTION: false,
             DEVELOPMENT: true,
+            SSR: target === 'node' ? true : false,
           },
           CONSTS.extractKeyValue(CONSTS)
         )
       ),
     ],
   })
+
+  if (target === 'web') {
+    config.entry.client.unshift(
+      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'
+    )
+    config.plugins.push(new webpack.HotModuleReplacementPlugin())
+  } else {
+    config.plugins.push(
+      new MiniCssExtractPlugin({
+        filename: '[name].bundle.css',
+      })
+    )
+  }
+  return config
 }
+
+module.exports = [getConfig('web'), getConfig('node')]

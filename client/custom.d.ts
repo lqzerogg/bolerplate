@@ -5,9 +5,10 @@ declare module '*.svg' {
 
 declare module '*.module.css'
 
-declare var PUBLIC_PATH: string
-declare var SERVER_URL: string
-declare var ASSETS_PATH: string
+declare const PUBLIC_PATH: string
+declare const SERVER_URL: string
+declare const ASSETS_PATH: string
+declare const SSR: boolean
 
 declare type ReactProps = {
   children: JSX.Element

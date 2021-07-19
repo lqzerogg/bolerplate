@@ -32,4 +32,4 @@ function App(props: { location: Location }) {
   )
 }
 
-export default hot(withRouter(App))
+export default hot(withRouter(App as React.FunctionComponent))

@@ -6,11 +6,19 @@
   "configurations": [
     {
       "name": "debug server",
-      "program": "${workspaceFolder}/devServer.js",
+      "program": "${workspaceFolder}/server_dist/index.js",
       "request": "launch",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "skipFiles": ["<node_internals>/**"],
+      "type": "pwa-node"
+    },
+    {
+      "name": "debug server prod",
+      "program": "${workspaceFolder}/server_dist/index.js",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "NODE_ENV": "production"
+      },
       "type": "pwa-node"
     },
 
@@ -19,26 +27,22 @@
       "type": "node",
       "request": "launch",
       "program": "${workspaceRoot}/node_modules/ts-node/dist/bin.js",
-      "args": [
-          "${relativeFile}"
-      ],
+      "args": ["${relativeFile}"],
       "cwd": "${workspaceRoot}",
       "protocol": "inspector"
-    },
-    {
-      // "type": "node",
-      // "request": "launch",
-      // "name": "Launch Program",
-      // "program": "${workspaceFolder}/src/test/index.ts",
-      // "outFiles": ["${workspaceFolder}/.dist/**/*.js"]
-      "name": "Launch Program",
-      "program": "${workspaceFolder}/src/test/index.ts",
-      "request": "launch",
-      "preLaunchTask": "tsc: build - tsconfig.json",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "type": "pwa-node"
     }
+    // {
+    //   // "type": "node",
+    //   // "request": "launch",
+    //   // "name": "Launch Program",
+    //   // "program": "${workspaceFolder}/src/test/index.ts",
+    //   // "outFiles": ["${workspaceFolder}/.dist/**/*.js"]
+    //   "name": "Launch Program",
+    //   "program": "${workspaceFolder}/src/test/index.ts",
+    //   "request": "launch",
+    //   "preLaunchTask": "tsc: build - tsconfig.json",
+    //   "skipFiles": ["<node_internals>/**"],
+    //   "type": "pwa-node"
+    // }
   ]
 }

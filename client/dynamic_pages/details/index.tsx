@@ -3,13 +3,9 @@ import loadable from '@loadable/component'
 import Loading from '../../components/loading'
 import { delaySpan, timeout } from '../../libs/util'
 
-function doLoad() {
+const doLoad = /* #__LOADABLE__ */ () => {
   return timeout(
-    delaySpan(
-      import(
-        /* webpackPrefetch: true */ /* webpackChunkName: "details" */ './Details'
-      )
-    )
+    delaySpan(import(/* webpackChunkName: "details" */ './Details'))
   )
 }
 

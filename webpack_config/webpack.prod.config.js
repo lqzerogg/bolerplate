@@ -5,13 +5,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { merge } = require('webpack-merge')
 const TerserPlugin = require('terser-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-const defaultCfg = require('./webpack.common.config')
+const getDefault = require('./webpack.common.config')
 
-module.exports = (/* env, argv */) => {
-  let envPath = './envs/production.env.js'
-  const CONSTS = require(envPath)
+function getConfig(target) {
+  const defaultCfg = getDefault(target)
+  let ENVPATH = '../envs/production.env.js'
+  const CONSTS = require(ENVPATH)
   const publicPath = CONSTS.PUBLIC_PATH
-  return merge(defaultCfg, {
+  const config = merge(defaultCfg, {
     mode: 'production',
     module: {
       rules: [
@@ -27,14 +28,12 @@ module.exports = (/* env, argv */) => {
           ],
         },
         {
-          // todo css not enable
           test: /\.module\.css$/i,
           use: [
             MiniCssExtractPlugin.loader,
             {
               loader: 'css-loader',
               options: {
-                sourceMap: true,
                 esModule: true,
                 modules: {
                   namedExport: true,
@@ -47,32 +46,41 @@ module.exports = (/* env, argv */) => {
         },
       ],
     },
-    optimization: {
-      minimizer: [
-        new TerserPlugin({
-          /* additional options here */
-        }),
-        new CssMinimizerPlugin(),
-      ],
-    },
     plugins: [
-      new MiniCssExtractPlugin({
-        filename: '[name].[contenthash].bundle.css',
-      }),
       new webpack.DefinePlugin(
         Object.assign(
           {
             PRDUCTION: true,
+            SSR: target === 'node' ? true : false,
             DEVELOPMENT: false,
           },
           CONSTS.extractKeyValue(CONSTS)
         )
       ),
+      new MiniCssExtractPlugin({
+        filename: `[name].${
+          target === 'web' ? '[contenthash].' : ''
+        }bundle.css`,
+      }),
     ],
     output: {
-      path: path.resolve(__dirname, '.dist/assets/'),
       publicPath,
-      filename: '[name].[contenthash].bundle.js',
+      filename:
+        target === 'web'
+          ? '[name].[contenthash].bundle.js'
+          : '[name].bundle.js',
     },
   })
+
+  if (target === 'web') {
+    config.optimization.minimizer = [
+      new CssMinimizerPlugin(),
+      new TerserPlugin({
+        /* additional options here */
+      }),
+    ]
+  }
+  return config
 }
+
+module.exports = [getConfig('web'), getConfig('node')]

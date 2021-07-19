@@ -1,6 +1,8 @@
+const delayTime = SSR ? 0 : 2000
+
 export async function delaySpan<T>(
   promise: Promise<T>,
-  delay = 2000
+  delay = delayTime
 ): Promise<T> {
   const timePro = new Promise<void>((resolve) => {
     global.setTimeout(resolve, delay)
