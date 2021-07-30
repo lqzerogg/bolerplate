@@ -1,0 +1,10 @@
+@define-mixins sizing $sizes: small {
+  .spinner.$(sizes) {
+    width: var(--$(sizes)-spinner-size);
+    height: var(--$(sizes)-spinner-size);
+  }
+  .$(sizes) .bubble1 {
+    width: var(--${sizes}-bubble-size);
+    height: var(--${sizes}-bubble-size);
+  }
+}

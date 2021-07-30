@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import logo from '@assets/logo.svg'
+import { Link } from 'react-router-dom'
 import './index.css'
+import logo from '@assets/logo.svg'
 
 function Home(): JSX.Element {
   const [count, setCount] = useState(0)
@@ -35,6 +36,10 @@ function Home(): JSX.Element {
         >
           Vite Docs
         </a>
+        {' | '}
+        <Link to="/about/1234" className="App-link">
+          go to visit 1234{' '}
+        </Link>
       </p>
     </header>
   )
@@ -49,5 +54,6 @@ function Home(): JSX.Element {
 export default {
   path: '/',
   name: 'home',
+  exact: true,
   component: Home,
 }

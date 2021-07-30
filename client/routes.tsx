@@ -1,32 +1,32 @@
 import React from 'react'
 import home from './home'
-import { Route } from 'react-router-dom'
+import { Route, matchPath } from 'react-router-dom'
+
+// require all dynamic pages
+const ctx = require.context('./dynamic_pages', true, /index\.tsx/)
+const routes: Page[] = ctx.keys().map((key) => ctx(key).default)
 
 type Page = {
   name: string
-  path: string
   component: React.FunctionComponent
+  path: string
+  exact?: boolean
 }
-// require all dynamic pages
-const ctx = require.context('./dynamic_pages', true, /index\.tsx/)
-const pages: Page[] = ctx.keys().map((key) => ctx(key).default)
 
 // require all static pages
-pages.unshift(home)
+routes.unshift(home)
 // const pages: Page[] = [
 //   home,
 //   about,
 //   details,
 // ];
 
-const routes: JSX.Element[] = pages.map((page) => (
-  <Route
-    key={page.path}
-    path={page.path}
-    exact={page.path === '/' ? true : false}
-  >
-    <page.component />
-  </Route>
-))
+const $routes: JSX.Element[] = routes.map((page) => {
+  return (
+    <Route key={page.path} path={page.path} exact={page.exact}>
+      <page.component />
+    </Route>
+  )
+})
 
-export { pages, routes }
+export { routes, $routes }

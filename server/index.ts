@@ -4,11 +4,14 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpack from 'webpack'
 import hotMiddleware from 'webpack-hot-middleware'
 import { render } from './render'
+import setApi from './api'
 
 // console.log(App)
 
 async function createServer() {
   const app = express()
+
+  setApi(app)
 
   //dev mod
   if (process.env.NODE_ENV !== 'production') {
@@ -43,7 +46,7 @@ async function createServer() {
     )
   }
 
-  app.get('*', async (req, res) => {
+  app.get('*', (req, res) => {
     res.send(render(req.url, {})).end()
   })
 

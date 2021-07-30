@@ -8,7 +8,7 @@ const doLoad = /* #__LOADABLE__ */ () => {
 }
 
 const About = loadable(doLoad, { fallback: <Loading /> })
-const path = '/about'
+const path = '/about/:uid'
 
 export default {
   path,

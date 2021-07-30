@@ -1,10 +1,34 @@
+:root {
+  --ratio: 25/45;
+  --small-spinner-size: 45px;
+  --middle-spinner-size: 63px;
+  --large-spinner-size: 90px;
+  --small-bubble-size: calc(var(--small-spinner-size) * var(--ratio));
+  --middle-bubble-size: calc(var(--middle-spinner-size) * var(--ratio));
+  --large-bubble-size: calc(var(--large-spinner-size) * var(--ratio));
+}
 .spinner {
   position: relative;
-  width: 45px;
-  height: 45px;
   margin: 0 auto;
-
   animation: loading 2s linear infinite;
+}
+
+@define-mixin sizing $sizes: small {
+  .spinner.$(sizes) {
+    width: var(--$(sizes)-spinner-size);
+    height: var(--$(sizes)-spinner-size);
+  }
+  .spinner.$(sizes) .bubble1 {
+    width: var(--$(sizes)-bubble-size);
+    height: var(--$(sizes)-bubble-size);
+  }
+}
+
+@mixin sizing small {
+}
+@mixin sizing middle {
+}
+@mixin sizing large {
 }
 
 .loading-wrapper {
@@ -16,11 +40,8 @@
 .bubble1 {
   position: absolute;
   top: 0;
-  width: 25px;
-  height: 25px;
   border-radius: 100%;
   background-color: #4b9cdb;
-
   animation: bounce 2s ease-in-out infinite;
 }
 
