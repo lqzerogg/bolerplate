@@ -1,0 +1,34 @@
+.ctn {
+  padding: 2rem 1.5rem;
+}
+
+.post {
+  color: black;
+  position: relative;
+}
+
+.title {
+  color: grey;
+}
+
+.link {
+  color: blue;
+}
+
+.time {
+  color: grey;
+  font-style: italic;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.author {
+  font-size: 0.9rem;
+  float: right;
+  color: grey;
+}
+
+.content {
+  color: black;
+}

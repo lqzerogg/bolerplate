@@ -1,0 +1,45 @@
+:root {
+  --grey-color: grey;
+  --main-color: black;
+  --blue-color: blue;
+}
+
+.posts-list {
+  padding: 1rem 1.5rem;
+}
+
+.post-excerpt {
+  border-bottom: 1px solid var(--grey-color);
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.post-time {
+  color: var(--grey-color);
+  font-style: italic;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.post-title {
+  color: var(--grey-color);
+  margin: 0;
+  font-size: 1rem;
+}
+
+.post-author {
+  font-size: 0.9rem;
+  color: var(--grey-color);
+  float: right;
+}
+
+.post-link {
+  color: blue;
+}
+
+.post-content {
+  font-size: 1.5rem;
+  color: var(--main-color);
+  margin: 0;
+}

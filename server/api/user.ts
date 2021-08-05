@@ -1,4 +1,4 @@
-import { ExtraInfo, User } from '../../types'
+import { ExtraInfo, User } from '../../models'
 import express from 'express'
 
 const defaultUser = {

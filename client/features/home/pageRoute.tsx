@@ -1,18 +1,25 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { increment, decrement, TypeState } from './featureSlice'
 import './index.css'
 import logo from '@assets/logo.svg'
 
 function Home(): JSX.Element {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
+  const count = useSelector((state: TypeState) => state.counter.value)
+  const dispatch = useDispatch()
 
   return (
     <header className="App-header">
       <img src={logo} className="App-logo" alt="logo" />
       <p>Hello Vite + React!</p>
       <p>
-        <button type="button" onClick={() => setCount((count) => count + 1)}>
-          hello world! count: {count}
+        <button type="button" onClick={() => dispatch(increment())}>
+          increate count: {count}
+        </button>
+        <button type="button" onClick={() => dispatch(decrement())}>
+          decreate count: {count}
         </button>
       </p>
       <p>

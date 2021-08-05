@@ -1,9 +1,8 @@
 import React from 'react'
-import home from './home'
-import { Route, matchPath } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 // require all dynamic pages
-const ctx = require.context('./dynamic_pages', true, /index\.tsx/)
+const ctx = require.context('./features', true, /pageRoute\.tsx/)
 const routes: Page[] = ctx.keys().map((key) => ctx(key).default)
 
 type Page = {
@@ -14,7 +13,6 @@ type Page = {
 }
 
 // require all static pages
-routes.unshift(home)
 // const pages: Page[] = [
 //   home,
 //   about,

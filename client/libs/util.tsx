@@ -1,4 +1,4 @@
-const delayTime = SSR ? 0 : 2000
+const delayTime = SSR ? 0 : 1000
 
 export async function delaySpan<T>(
   promise: Promise<T>,
@@ -20,3 +20,5 @@ export async function timeout<T>(
   })
   return Promise.race([promise, timePro]) as unknown as Promise<T>
 }
+
+export { dynamicPageWrp } from './dynamicPageWrp'

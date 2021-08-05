@@ -1,4 +1,4 @@
-import { User } from '../types'
+import { User } from '../models'
 import { Action, Reducer } from 'redux'
 
 const ACTIONS_TYPES = {

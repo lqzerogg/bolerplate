@@ -1,16 +1,9 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  useReducer,
-  useCallback,
-  useMemo,
-} from 'react'
+import React, { useState, useEffect, useContext, useReducer } from 'react'
 import './index.css'
 import { AppContext } from '../../App'
 import detailReducer, { ACTIONS } from './reducer'
 
-export default function Details() {
+export default function Details(): JSX.Element {
   const { uid: user } = useContext(AppContext)
   const [count, setCount] = useState(0)
   useEffect(() => {

@@ -1,9 +1,9 @@
 import React from 'react'
 import path from 'path'
 import serialize from 'serialize-javascript'
-import { User } from '../types'
+import { User } from '../models'
 import { renderToString } from 'react-dom/server'
-import { createStore, Reducer, Action } from 'redux'
+import { createStore, Reducer, Action, Store } from 'redux'
 import { Provider } from 'react-redux'
 import { StaticRouter } from 'react-router-dom'
 import { ChunkExtractor } from '@loadable/server'
@@ -16,18 +16,21 @@ export function render(url: string, context: Record<string, never>): string {
     statsFile: serverStats,
     entrypoints: ['client'],
   })
-  const { default: App, appReducer } = nodeExtractor.requireEntrypoint(
-    'client'
-  ) as {
+  const {
+    default: App,
+    appReducer,
+    store,
+  } = nodeExtractor.requireEntrypoint('client') as {
     default: React.FunctionComponent
     appReducer: Reducer<User | undefined, Action>
+    store: Store<any, any>
   }
 
   const extractor = new ChunkExtractor({
     statsFile: webStats,
     entrypoints: ['client'],
   })
-  const store = createStore(appReducer)
+  // const store = createStore(appReducer)
   const jsx = extractor.collectChunks(
     <Provider store={store}>
       <StaticRouter location={url} context={context}>

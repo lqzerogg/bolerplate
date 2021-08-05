@@ -3,10 +3,11 @@ import React, { createContext } from 'react'
 import { Link, Switch, withRouter } from 'react-router-dom'
 import { $routes, routes } from './routes'
 import './App.css'
-import ErrorBoundary from './components/errorBoudary'
+import ErrorBoundary from './components/ErrorBoudary'
 
 const AppContext = createContext({ uid: 111 })
 const User = { uid: 1234 }
+const pageNames = ['home', 'details', 'posts']
 
 export { AppContext }
 
@@ -16,7 +17,8 @@ function App(props: { location: Location }) {
       <nav className="tab-ctn">
         <div className="tabs">
           {routes
-            .filter((page) => page.name !== 'about')
+            .filter((page) => pageNames.indexOf(page.name) > -1)
+            .sort((prev) => (prev.name === 'home' ? -1 : 1))
             .map(({ name, path }) => {
               return (
                 <Link

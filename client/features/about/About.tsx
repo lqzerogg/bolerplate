@@ -1,8 +1,8 @@
-import React, { useState, useCallback, useEffect, useContext } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import * as clax from './index.module.css'
-import { ExtraInfo, User } from '../../../types'
-import Loading from '../../components/loading'
+import { ExtraInfo, User } from '../../../models'
+import Loading from '../../components/Loading'
 
 type ExtraFunctionType = (title: string, value: string) => void
 

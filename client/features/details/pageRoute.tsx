@@ -1,6 +1,6 @@
 import React from 'react'
 import loadable from '@loadable/component'
-import Loading from '../../components/loading'
+import Loading from '../../components/Loading'
 import { delaySpan, timeout } from '../../libs/util'
 
 const doLoad = /* #__LOADABLE__ */ () => {
@@ -9,18 +9,12 @@ const doLoad = /* #__LOADABLE__ */ () => {
   )
 }
 
-const Details = loadable(doLoad, { fallback: <Loading /> })
+const component = loadable(doLoad, { fallback: <Loading /> })
 const path = '/details'
-
-function loadData(): Promise<void> {
-  return new Promise((resolve) => {
-    global.setTimeout(resolve, 2000)
-  })
-}
+const name = 'details'
 
 export default {
   path,
-  name: 'details',
-  component: Details,
-  loadData,
+  name,
+  component,
 }

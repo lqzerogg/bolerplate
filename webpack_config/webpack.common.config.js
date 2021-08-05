@@ -67,10 +67,43 @@ module.exports = (target) => {
       splitChunks: {
         cacheGroups: {
           vendor: {
-            test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom|@loadable\/component|react-hot-loader)[\\/]/,
+            test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom|@loadable\/component|react-hot-loader|redux|react-redux|@reduxjs\/toolkit)/,
+            // test: /[\\/]node_modules/,
             name: 'vendor',
             chunks: 'all',
+            priority: 100,
           },
+          posts: {
+            // test(module) {
+            //   if(module.resource&& module.resource.indexOf('features/posts') >= 0) {
+            //     console.log('~~~~~~~', module.resource)
+            //     return true
+            //   }
+            //   return false
+            // },
+            test: /[\\/]features[\\/]posts/,
+            reuseExistingChunk: true,
+            name: 'postschunk',
+            priority: 0,
+            enforce: true,
+            // chunks: 'all',
+          },
+          // postscss: {
+          //   // test(module) {
+          //   //   if(module.resource&& module.resource.indexOf('features/posts') >= 0) {
+          //   //     console.log('~~~~~~~', module.resource)
+          //   //     return true
+          //   //   }
+          //   //   return false
+          //   // },
+          //   // test: /[\\/]features[\\/]posts[\w\\/-_]+\.css$/,
+          //   reuseExistingChunk: true,
+          //   type: "css/mini-extract",
+          //   name: 'postscss',
+          //   enforce: true,
+          //   priority: 1,
+          //   // chunks: 'all',
+          // }
         },
       },
     },

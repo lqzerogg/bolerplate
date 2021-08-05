@@ -43,7 +43,7 @@ function getConfig(target) {
                 esModule: true,
                 modules: {
                   namedExport: true,
-                  localIdentName: '[name]__[local]',
+                  localIdentName: '[local]_[hash:base64:7]',
                 },
               },
             },

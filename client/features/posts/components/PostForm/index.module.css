@@ -1,0 +1,35 @@
+.ctn {
+  padding: 0;
+}
+
+.post-label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.post-title,
+.post-user,
+.post-date {
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid grey;
+}
+
+.post-content {
+  font-size: 1rem;
+  padding: 0.5rem;
+  display: block;
+  width: 100%;
+  height: 10rem;
+  box-sizing: border-box;
+  border: 1px solid grey;
+  margin-bottom: 1.5rem;
+}
+
+.save-btn {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
