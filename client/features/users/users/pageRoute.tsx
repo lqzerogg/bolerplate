@@ -4,15 +4,18 @@ import Loading from '../../../common/Loading'
 import { delaySpan, timeout } from '../../../libs/util'
 
 const doLoad = /* #__LOADABLE__ */ () => {
-  return timeout(delaySpan(import(/* webpackChunkName: "post" */ './Post'), 0))
+  return timeout(
+    delaySpan(import(/* webpackChunkName: "users" */ './UsersList'))
+  )
 }
 
 const component = loadable(doLoad, { fallback: <Loading /> })
-const path = '/post/:pid'
-const name = 'post'
+const path = '/users'
+const name = 'users'
 
 export default {
+  exact: true,
+  component,
   path,
   name,
-  component,
 }

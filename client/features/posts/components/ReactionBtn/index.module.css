@@ -5,7 +5,7 @@
 .reaction {
   margin-right: 0.5rem;
 
-  &:first-child {
+  &:last-child {
     margin-right: 0;
   }
 }

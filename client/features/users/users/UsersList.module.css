@@ -1,0 +1,13 @@
+.users-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.user-item {
+  margin: 0 0 0.5rem;
+}
+
+.listCtn {
+  padding: 1.5rem;
+}

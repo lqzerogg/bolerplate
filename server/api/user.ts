@@ -1,4 +1,5 @@
 import { ExtraInfo, User } from '../../models'
+import clone from 'clone'
 import express from 'express'
 
 const defaultUser = {
@@ -30,4 +31,24 @@ export function getUser(
     realName: `${defaultUser.realName}_${uid}`,
   }
   res.json(user)
+}
+
+export function getUsers(req: express.Request, res: express.Response): void {
+  const users = [
+    { id: '0', name: 'Tianna Jenkins' },
+    { id: '1', name: 'Kevin Grant' },
+    { id: '2', name: 'Madison Price' },
+  ]
+  for (let i = 3; i < 20; ++i) {
+    const user = clone(users[0], false)
+    user.id = `${i}`
+    user.name += i
+    users.push(user)
+  }
+  res.json(users)
+}
+
+export default function init(router: express.Router): void {
+  router.get('/user/:uid', getUser)
+  router.get('/users', getUsers)
 }

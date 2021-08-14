@@ -6,19 +6,20 @@ import hotMiddleware from 'webpack-hot-middleware'
 import { render } from './render'
 import setApi from './api'
 
-// console.log(App)
-
 async function createServer() {
   const app = express()
+
+  app.use(express.json())
 
   setApi(app)
 
   //dev mod
   if (process.env.NODE_ENV !== 'production') {
-    const compiler = webpack(webpackCfg[0] as unknown as webpack.Configuration)
+    const clientCfg = webpackCfg[0] as unknown as webpack.Configuration
+    const compiler = webpack(clientCfg)
     app.use(
       webpackDevMiddleware(compiler, {
-        publicPath: webpackCfg[0].output.publicPath,
+        publicPath: clientCfg.output && (clientCfg.output.publicPath as string),
         writeToDisk: true,
       })
     )
@@ -29,9 +30,9 @@ async function createServer() {
         heartbeat: 10 * 1000,
       })
     )
-    const serverAssetsCompiler = webpack(
-      webpackCfg[1] as unknown as webpack.Configuration
-    )
+
+    const serverCfg = webpackCfg[1] as unknown as webpack.Configuration
+    const serverAssetsCompiler = webpack(serverCfg)
     serverAssetsCompiler.watch(
       {
         aggregateTimeout: 300,
@@ -56,3 +57,4 @@ async function createServer() {
 }
 
 createServer()
+export default {}

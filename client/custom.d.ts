@@ -1,5 +1,5 @@
 declare module '*.svg' {
-  const content: any
+  const content: any // eslint-disable-line
   export default content
 }
 declare module '*.module.css'
@@ -12,5 +12,3 @@ declare const ASSETS_PATH: string
 declare type ReactProps = {
   children: JSX.Element
 }
-
-// export {}

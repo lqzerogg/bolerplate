@@ -56,6 +56,7 @@ function getConfig(target) {
       filename: '[name].bundle.js',
       publicPath,
     },
+
     plugins: [
       new webpack.DefinePlugin(
         Object.assign(
@@ -75,6 +76,11 @@ function getConfig(target) {
       'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'
     )
     config.plugins.push(new webpack.HotModuleReplacementPlugin())
+    config.module.rules.push({
+      test: /\.(js|jsx)$/,
+      use: 'react-hot-loader/webpack',
+      include: /node_modules/,
+    })
   } else {
     config.plugins.push(
       new MiniCssExtractPlugin({
@@ -82,6 +88,7 @@ function getConfig(target) {
       })
     )
   }
+
   return config
 }
 

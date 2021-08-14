@@ -1,36 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { Post } from '../../../models'
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit'
+import axios from 'axios'
+import { delaySpan } from '../../libs/util'
+import { Post, STATUS } from '../../../models'
 
-const initialState = [
-  {
-    id: '1',
-    title: 'First Post!',
-    content: 'Hello!',
-    user: '1',
-    date: new Date('2019-12-12').getTime(),
-    reactions: {
-      thumbsUp: 0,
-      hooray: 1,
-      heart: 2,
-      rocket: 3,
-      eyes: 4,
-    },
-  },
-  {
-    id: '2',
-    title: 'Second Post',
-    content: 'More text',
-    user: '2',
-    date: new Date('2021-12-12').getTime(),
-    reactions: {
-      thumbsUp: 3,
-      hooray: 4,
-      heart: 10,
-      rocket: 3,
-      eyes: 4,
-    },
-  },
-]
+const initialState = {
+  list: [],
+  status: 'idel',
+  error: undefined,
+} as {
+  list: Post[]
+  status: STATUS
+  error?: string
+}
+
+export const fetchPosts = createAsyncThunk(
+  'posts/fetchPosts',
+  async function (): Promise<Post[]> {
+    const response = await delaySpan(axios.get('/api/post/list'), 2000)
+    return response.data
+  }
+)
+
+export const addNewPost = createAsyncThunk(
+  'posts/addNewPost',
+  async function (post: Omit<Post, 'reactions' | 'id'>): Promise<Post> {
+    const response = await delaySpan(axios.post('/api/post/add', post), 2000)
+    return response.data
+  }
+)
 
 export const key = 'posts'
 
@@ -38,38 +35,67 @@ const slice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    postAdded(
-      state,
-      action: { type: string; payload: Omit<Post, 'reactions'> }
-    ) {
-      state.push(
-        Object.assign(
-          {
-            reactions: {
-              thumbsUp: 0,
-              hooray: 0,
-              heart: 0,
-              rocket: 0,
-              eyes: 0,
-            },
-          },
-          action.payload
-        )
-      )
-    },
     postUpdated(state, action: { type: string; payload: Partial<Post> }) {
-      const existingPost = state.find((post) => post.id === action.payload.id)
+      const existingPost = state.list.find(
+        (post) => post.id === action.payload.id
+      )
       Object.assign(existingPost || {}, action.payload)
     },
+    reactionAdded(
+      state,
+      action: {
+        type: string
+        payload: { pid: string; rid: keyof Post['reactions'] }
+      }
+    ) {
+      const existingPost = state.list.find(
+        (post) => post.id === action.payload.pid
+      )
+      if (existingPost) {
+        existingPost.reactions[action.payload.rid]++
+      }
+    },
+  },
+  extraReducers: (builder) => {
+    // fetch list
+    builder.addCase(fetchPosts.pending, (state) => {
+      state.status = STATUS.loading
+    })
+    builder.addCase(fetchPosts.fulfilled, (state, action) => {
+      state.status = STATUS.succeeded
+      state.list = state.list.concat(action.payload)
+    })
+    builder.addCase(fetchPosts.rejected, (state, action) => {
+      state.status = STATUS.failed
+      state.error = action.error.message
+    })
+
+    // add posts
+    builder.addCase(addNewPost.fulfilled, (state, action) => {
+      state.list.push(action.payload)
+    })
   },
 })
 
-export const { postAdded, postUpdated } = slice.actions
-export const selector = function (state: { posts: Post[] }): Post[] {
-  return state.posts
-}
-export default slice.reducer
 type PostsState = ReturnType<typeof slice.reducer>
 export type TypeState = {
   [key]: PostsState
 }
+
+export const { postUpdated, reactionAdded } = slice.actions
+
+export const selectAllPosts = function (state: TypeState): Post[] {
+  return state.posts.list
+}
+export const selectPostById = function (
+  state: TypeState,
+  id: string
+): Post | undefined {
+  return state.posts.list.find((post) => post.id === id)
+}
+export const selectPostsByUser = createSelector(
+  [selectAllPosts, (state: TypeState, uid: string): string => uid],
+  (posts: Post[], uid: string) => posts.filter((post) => post.user === uid)
+)
+
+export default slice.reducer

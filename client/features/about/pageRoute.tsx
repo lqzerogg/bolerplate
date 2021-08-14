@@ -1,6 +1,6 @@
 import React from 'react'
 import loadable from '@loadable/component'
-import Loading from '../../components/Loading'
+import Loading from '../../common/Loading'
 import { delaySpan, timeout } from '../../libs/util'
 
 const doLoad = /* #__LOADABLE__ */ () => {

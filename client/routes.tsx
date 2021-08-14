@@ -2,7 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 
 // require all dynamic pages
-const ctx = require.context('./features', true, /pageRoute\.tsx/)
+const ctx = require.context('./features', true, /pageRoute\.tsx?/)
 const routes: Page[] = ctx.keys().map((key) => ctx(key).default)
 
 type Page = {

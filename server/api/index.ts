@@ -1,9 +1,14 @@
 import express, { Application } from 'express'
-import { getUser } from './user'
+import initUser from './user'
+import initPosts from './posts'
+import initNotifications from './notifications'
 
 export default function setApi(app: Application): void {
   const router = express.Router()
-  router.get('/user/:uid', getUser)
+
+  initUser(router)
+  initPosts(router)
+  initNotifications(router)
 
   app.use('/api', router)
 }

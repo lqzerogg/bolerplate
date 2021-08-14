@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { User } from '../../../../../models'
+import { Link } from 'react-router-dom'
+import { selectAllUsers } from '../../../users/featureSlice'
 
 export default function PostAuthor({
   uid,
@@ -9,10 +10,10 @@ export default function PostAuthor({
   uid: string
   className?: string
 }): JSX.Element {
-  const author = useSelector((state: { users: User[] }) =>
-    state.users.find((user) => user.id === uid)
-  )
+  const author = useSelector(selectAllUsers).find((user) => user.id === uid)
   return (
-    <span className={className}>{author ? author.name : 'unknown author'}</span>
+    <Link to={`/user/${uid}`} className={className}>
+      {author ? author.name : 'unknown author'}
+    </Link>
   )
 }

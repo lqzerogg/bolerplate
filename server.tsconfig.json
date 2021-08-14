@@ -1,0 +1,31 @@
+{
+  "extends": "ts-node/node14/tsconfig.json",
+
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
+    "compilerOptions": {
+      "baseUrl": ".",
+      "typeRoots": ["./node_modules/@types", "./types"],
+      "declaration": true,
+      "noImplicitAny": true,
+      "allowJs": true,
+      "strict": true,
+      "experimentalDecorators": true,
+      "strictNullChecks": true,
+      "preserveConstEnums": true,
+      "sourceMap": true,
+      "skipLibCheck": false,
+      "target": "ESNext",
+      "moduleResolution": "node",
+      "module": "commonjs",
+      "allowSyntheticDefaultImports": true,
+      "forceConsistentCasingInFileNames": true,
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "noEmit": true,
+      "jsx": "react-jsx"
+    }
+  },
+  "exclude": ["node_modules/**"]
+}

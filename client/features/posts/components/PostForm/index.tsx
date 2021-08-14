@@ -15,7 +15,8 @@ import {
   saveBtn,
   postLabel,
 } from './index.module.css'
-import { Post, User } from '../../../../../models'
+import { Post } from '../../../../../models'
+import { Author } from '../../../users/featureSlice'
 
 type TypeProp = {
   saveHandler: (
@@ -25,7 +26,7 @@ type TypeProp = {
     date: number
   ) => void
   post: Omit<Post, 'reactions'>
-  users: User[]
+  users: Author[]
 }
 
 export interface FormInstance {
@@ -38,7 +39,7 @@ function PostForm(
 ): JSX.Element {
   const [titleState, setTitleState] = useState(post.title)
   const [contentState, setContentState] = useState(post.content)
-  const [uid, setUid] = useState(post.user || users[0].id)
+  const [uid, setUid] = useState(post.user || (users[0] && users[0].id))
   const [dateState, setDateState] = useState(
     format(post.date || Date.now(), 'yyyy-MM-dd')
   )

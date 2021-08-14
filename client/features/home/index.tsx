@@ -2,10 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { increment, decrement, TypeState } from './featureSlice'
+import { fetchNotifications } from '../notifications/featureSlice'
 import './index.css'
 import logo from '@assets/logo.svg'
 
-function Home(): JSX.Element {
+export default function Home(): JSX.Element {
   // const [count, setCount] = useState(0)
   const count = useSelector((state: TypeState) => state.counter.value)
   const dispatch = useDispatch()
@@ -20,6 +21,9 @@ function Home(): JSX.Element {
         </button>
         <button type="button" onClick={() => dispatch(decrement())}>
           decreate count: {count}
+        </button>
+        <button type="button" onClick={() => dispatch(fetchNotifications())}>
+          fetch new notifications
         </button>
       </p>
       <p>
@@ -57,10 +61,3 @@ function Home(): JSX.Element {
 //     <Home />
 //   </Route>
 // );
-
-export default {
-  path: '/',
-  name: 'home',
-  exact: true,
-  component: Home,
-}

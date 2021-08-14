@@ -16,6 +16,52 @@ body {
   margin-bottom: 50px;
 }
 
+.noti-icon {
+  position: fixed;
+  z-index: 1;
+  top: 2rem;
+  right: 2.5rem;
+}
+
+.noti-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.fetch-btn {
+  background: blue;
+  border-radius: 2rem;
+  left: 2rem;
+  padding: 1rem;
+  position: fixed;
+  top: 2rem;
+  color: white;
+}
+
+.noti-num {
+  background: red;
+  display: none;
+  border-radius: 0.8rem;
+  color: #fff;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1.7rem;
+  height: 1.7rem;
+  font-size: 0.8rem;
+  padding: 0.25rem;
+  box-sizing: border-box;
+
+  &.is-show {
+    display: block;
+  }
+}
+
+.noti-text {
+  font-size: 3.5rem;
+  color: green;
+}
+
 .tab-ctn {
   position: fixed;
   width: 100%;

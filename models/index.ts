@@ -26,3 +26,19 @@ export interface Post {
     eyes: number
   }
 }
+
+export enum STATUS {
+  idel = 'idel',
+  loading = 'loading',
+  succeeded = 'succeeded',
+  failed = 'failed',
+}
+
+export type Author = Pick<User, 'id' | 'name'>
+export interface Notification {
+  id: string
+  date: number
+  user: string
+  read: boolean
+  message: string
+}

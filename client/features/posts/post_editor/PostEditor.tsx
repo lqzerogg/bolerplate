@@ -1,16 +1,14 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { postUpdated, TypeState } from '../featureSlice'
+import { postUpdated, TypeState, selectPostById } from '../featureSlice'
 import PostForm from '../components/PostForm'
 import { ctn, ctnTitle } from './index.module.css'
 import { User } from '../../../../models'
 
 export default function PostEditor(): JSX.Element {
   const { pid } = useParams() as { pid: string }
-  const post = useSelector((state: TypeState) =>
-    state.posts.find((post) => post.id === pid)
-  )
+  const post = useSelector((state: TypeState) => selectPostById(state, pid))
   const users = useSelector((state: { users: User[] }) => state.users)
   if (!post) {
     throw new Error('Post not found')

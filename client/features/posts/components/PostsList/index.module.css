@@ -31,11 +31,18 @@
 .post-author {
   font-size: 0.9rem;
   color: var(--grey-color);
-  float: right;
+  z-index: 1;
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0;
 }
 
 .post-link {
   color: blue;
+}
+
+.post-reactions {
+  width: 100%;
 }
 
 .post-content {
