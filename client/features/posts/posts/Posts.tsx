@@ -19,7 +19,6 @@ function Posts(): JSX.Element {
       dispatch(fetchPosts())
     }
   }, [status, dispatch])
-
   useEffect(() => {
     dispatch(fetchNotifications())
   }, [dispatch])

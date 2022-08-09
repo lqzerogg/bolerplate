@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const webpack = require('webpack')
+const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const { merge } = require('webpack-merge')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const getDefault = require('./webpack.common.config.js')
@@ -76,11 +77,12 @@ function getConfig(target) {
       'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'
     )
     config.plugins.push(new webpack.HotModuleReplacementPlugin())
-    config.module.rules.push({
-      test: /\.(js|jsx)$/,
-      use: 'react-hot-loader/webpack',
-      include: /node_modules/,
-    })
+    config.plugins.push(new ReactRefreshPlugin())
+    // config.module.rules.push({
+    //   test: /\.(js|jsx)$/,
+    //   use: 'react-hot-loader/webpack',
+    //   include: /node_modules/,
+    // })
   } else {
     config.plugins.push(
       new MiniCssExtractPlugin({

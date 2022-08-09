@@ -1,4 +1,3 @@
-import { hot } from 'react-hot-loader/root'
 import React, { createContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import classnames from 'classnames'
@@ -37,8 +36,8 @@ function NotiIcon({ num = 0 }: { num: number }): JSX.Element {
     </section>
   )
 }
-
 function App(props: { location: Location }) {
+  console.log('hot reload without react-hot-loader~~~~')
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchUsers())
@@ -87,4 +86,6 @@ function App(props: { location: Location }) {
   )
 }
 
-export default hot(withRouter(App as React.FunctionComponent))
+export default withRouter(App as React.FunctionComponent)
+
+// 1 3 nexttick 2

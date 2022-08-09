@@ -1,0 +1,30 @@
+
+
+
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "typeRoots": ["./node_modules/@types", "./types"],
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "noImplicitAny": true,
+    // "removeComments": true,
+    "moduleResolution": "Node",
+    "allowJs": true,
+    "strict": true,
+    "experimentalDecorators": true,
+    "strictNullChecks": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "skipLibCheck": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+  },
+  "include": ["./**/*"],
+  "exclude": ["node_modules/**/*"],
+}

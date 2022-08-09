@@ -32,7 +32,8 @@ module.exports = (api) => {
   }
 
   if (web) {
-    plugins.push('react-hot-loader/babel')
+    // plugins.push('react-hot-loader/babel')
+    plugins.push('react-refresh/babel')
   }
 
   return {

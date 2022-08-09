@@ -10,6 +10,7 @@ export default function Home(): JSX.Element {
   // const [count, setCount] = useState(0)
   const count = useSelector((state: TypeState) => state.counter.value)
   const dispatch = useDispatch()
+  console.log('update home')
 
   return (
     <header className="App-header">
